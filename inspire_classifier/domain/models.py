@@ -47,6 +47,7 @@ from fastai.text import (
     SortSampler,
     Variable
 )
+from fastai.metrics import f1
 from functools import partial
 from inspire_classifier.utils import FastLoadTokenizer
 import numpy as np
@@ -195,6 +196,7 @@ class Classifier(object):
         self.learner.unfreeze()
         self.learner.fit(learning_rates, n_cycle=1, wds=weight_decay, cycle_len=cycle_length, use_clr=(32, 10))
         save_model(self.learner.model, trained_classifier_save_path)
+        self.predict_validation_dataset()
 
     def load_trained_classifier_weights(self, trained_classifier_path):
         self.model.load_state_dict(torch.load(trained_classifier_path, map_location=lambda storage, loc: storage))
@@ -213,6 +215,15 @@ class Classifier(object):
         prediction_scores_numpy = prediction_scores[0].data.cpu().numpy()
 
         return numpy_softmax(prediction_scores_numpy[0])[0]
+
+    def predict_validation_dataset(self):
+        data, labels = next(iter(self.model_data.val_dl))
+        self.model.eval()
+        print(data)
+        print(labels)
+        y_pred = self.learner.get_preds(ds_type=self.model_data.val_dl)
+        f1_validation_score = f1(y_pred, labels)
+        print(f'Validation score (f1): {f1_validation_score}')
 
 
 def numpy_softmax(x):
