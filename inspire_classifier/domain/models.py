@@ -162,9 +162,11 @@ class Classifier(object):
         validation_labels = validation_labels.flatten()
         training_labels -= training_labels.min()
         validation_labels -= validation_labels.min()
+        print('zestaw walidacyjny: ', validation_labels.shape)
 
         training_dataset = TextDataset(training_token_ids, training_labels)
         validation_dataset = TextDataset(validation_token_ids, validation_labels)
+        print(validation_dataset)
         training_data_sampler = SortishSampler(data_source=training_token_ids, key=lambda x: len(training_token_ids[x]),
                                                bs=batch_size // 2)
         validation_data_sampler = SortSampler(data_source=validation_token_ids,
@@ -218,6 +220,7 @@ class Classifier(object):
         return numpy_softmax(prediction_scores_numpy[0])[0]
 
     def predict_validation_dataset(self):
+        print(dir(self.model_data.val_dl))
         data, labels = next(iter(self.model_data.val_dl))
         self.model.eval()
         print(data)
@@ -228,6 +231,7 @@ class Classifier(object):
         y_pred = np.argmax(np.array(predictions), axis=1)
         print('y pred')
         print(y_pred)
+        print('labels')
         f1_validation_score = f1_score(labels, y_pred)
         
         print(f'Validation score (f1): {f1_validation_score}')
