@@ -242,7 +242,7 @@ class Classifier(object):
         print('labels')
         # preda,_ = self.learner.predict_with_targs(self.model_data.val_dl)
         # predicted = to_np(torch.cat(preda))
-        f1_validation_score = f1_score(labels, labels)
+        f1_validation_score = f1_score(y_pred, labels, average='micro')
         
         print(f'Validation score (f1): {f1_validation_score}')
 
