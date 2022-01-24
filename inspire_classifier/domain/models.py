@@ -158,11 +158,14 @@ class Classifier(object):
         training_labels = np.load(training_data_labels_path)
         validation_labels = np.load(validation_data_labels_path)
 
+        print(f'val tokens size: {validation_labels.shape}')
+
         training_labels = training_labels.flatten()
         validation_labels = validation_labels.flatten()
         training_labels -= training_labels.min()
         validation_labels -= validation_labels.min()
-        print('zestaw walidacyjny: ', validation_labels.shape)
+        print('validation labels size: ', validation_labels.shape)
+        print(f'validation data size: {validation_labels.shape}')
 
         training_dataset = TextDataset(training_token_ids, training_labels)
         validation_dataset = TextDataset(validation_token_ids, validation_labels)

@@ -146,6 +146,7 @@ def train_and_save_classifier():
         raise IOError('Data ITOS not found.') from error
 
     try:
+        print('reading data...')
         classifier.load_training_and_validation_data(
             training_data_ids_path=path_for('classifier_data') / 'training_token_ids.npy',
             training_data_labels_path=path_for('classifier_data') / 'training_labels.npy',
