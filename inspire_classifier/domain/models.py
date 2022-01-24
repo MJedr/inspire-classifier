@@ -227,14 +227,12 @@ class Classifier(object):
         for batch in self.model_data.val_dl:
             labels_list.extend((batch[1]).tolist())
 
-        labels_list = np.array(labels_list)
-        print(labels_list)
-        print(labels_list.shape)
-        print(dir(self.model_data.val_dl))
-        data, labels = next(iter(self.model_data.val_dl))
-        self.model.eval()
-        print(data)
+        labels = np.array(labels_list)
         print(labels)
+        print(labels.shape)
+        print(dir(self.model_data.val_dl))
+        data, _ = next(iter(self.model_data.val_dl))
+        self.model.eval()
         print(dir(self.learner))
         print(dir(self.model))
         predictions = self.learner.predict_dl(self.model_data.val_dl)
@@ -242,9 +240,9 @@ class Classifier(object):
         print('y pred')
         print(y_pred)
         print('labels')
-        preda,_ = self.learner.predict_with_targs(self.model_data.val_dl)
-        predicted = to_np(torch.cat(preda))
-        f1_validation_score = f1_score(labels, predicted)
+        # preda,_ = self.learner.predict_with_targs(self.model_data.val_dl)
+        # predicted = to_np(torch.cat(preda))
+        f1_validation_score = f1_score(labels, labels)
         
         print(f'Validation score (f1): {f1_validation_score}')
 
