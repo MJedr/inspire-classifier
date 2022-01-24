@@ -48,6 +48,7 @@ from fastai.text import (
     Variable
 )
 from fastai.metrics import f1
+from sklearn.metrics import f1_score
 from functools import partial
 from inspire_classifier.utils import FastLoadTokenizer
 import numpy as np
@@ -227,7 +228,8 @@ class Classifier(object):
         y_pred = np.argmax(np.array(predictions), axis=1)
         print('y pred')
         print(y_pred)
-        f1_validation_score = f1(y_pred, labels)
+        f1_validation_score = f1_score(labels, y_pred)
+        
         print(f'Validation score (f1): {f1_validation_score}')
 
 
