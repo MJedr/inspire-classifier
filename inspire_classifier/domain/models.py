@@ -221,6 +221,8 @@ class Classifier(object):
         self.model.eval()
         print(data)
         print(labels)
+        print(dir(self.learner))
+        print(dir(self.model))
         y_pred = self.learner.get_preds(ds_type=self.model_data.val_dl)
         f1_validation_score = f1(y_pred, labels)
         print(f'Validation score (f1): {f1_validation_score}')
