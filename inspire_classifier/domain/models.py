@@ -238,7 +238,9 @@ class Classifier(object):
         print('y pred')
         print(y_pred)
         print('labels')
-        f1_validation_score = f1_score(labels, y_pred)
+        preda,_ = self.learner.predict_with_targs_(self.model_data.val_dl)
+        predicted = to_np(torch.cat(preda))
+        f1_validation_score = f1_score(labels, predicted)
         
         print(f'Validation score (f1): {f1_validation_score}')
 
