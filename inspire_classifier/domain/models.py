@@ -223,6 +223,9 @@ class Classifier(object):
         return numpy_softmax(prediction_scores_numpy[0])[0]
 
     def predict_validation_dataset(self):
+        for batch in self.model_data.val_dl:
+            print(batch)
+
         print(dir(self.model_data.val_dl))
         data, labels = next(iter(self.model_data.val_dl))
         self.model.eval()
