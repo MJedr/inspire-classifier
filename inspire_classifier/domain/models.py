@@ -223,9 +223,13 @@ class Classifier(object):
         return numpy_softmax(prediction_scores_numpy[0])[0]
 
     def predict_validation_dataset(self):
+        labels_list = []
         for batch in self.model_data.val_dl:
-            print(batch)
+            labels_list.extend((batch[1]).tolist())
 
+        labels_list = np.array(labels_list)
+        print(labels_list)
+        print(labels_list.shape)
         print(dir(self.model_data.val_dl))
         data, labels = next(iter(self.model_data.val_dl))
         self.model.eval()
@@ -238,7 +242,7 @@ class Classifier(object):
         print('y pred')
         print(y_pred)
         print('labels')
-        preda,_ = self.learner.predict_with_targs_(self.model_data.val_dl)
+        preda,_ = self.learner.predict_with_targs(self.model_data.val_dl)
         predicted = to_np(torch.cat(preda))
         f1_validation_score = f1_score(labels, predicted)
         
