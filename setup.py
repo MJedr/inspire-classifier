@@ -54,6 +54,7 @@ tests_require = [
     'mock~=2.0,>=2.0.0',
     'pytest-cov~=2.0,>=2.5.1',
     'pytest~=3.0,>=3.9.0',
+    'testpath==0.6.0'
 ]
 
 extras_require = {
