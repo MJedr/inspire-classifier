@@ -46,6 +46,7 @@ install_requires = [
     'numpy==1.15.4',
     'spacy~=2.0,>=2.0.0',
     'torchtext==0.2.3',
+    'threadpoolctl==2.0.0'
 ]
 
 docs_require = []
