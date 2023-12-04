@@ -38,13 +38,14 @@ setup_requires = [
 install_requires = [
     'click~=7.0,>=7.0',
     'click-spinner~=0.1,>=0.1.8',
+    'testpath==0.6.0',
     'fastai==0.7.0',
     'Flask~=1.0,>=1.0.2',
     'flask-apispec~=0.0,>=0.7.0',
     'marshmallow~=3.14.0',
     'numpy==1.15.4',
     'spacy~=2.0,>=2.0.0',
-    'torchtext==0.2.3'
+    'torchtext==0.2.3',
 ]
 
 docs_require = []
